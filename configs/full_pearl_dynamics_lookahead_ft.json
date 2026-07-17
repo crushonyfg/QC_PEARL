@@ -1,0 +1,35 @@
+{
+  "inherits": "full_pearl_dynamics_lookahead_qr.json",
+  "eval": {
+    "num_episodes": 3,
+    "seeds": [0, 1, 2],
+    "output_root": "results/full_pearl_dynamics_lookahead_ft"
+  },
+  "finetune": {
+    "lr": 3e-4,
+    "actor_lr": 3e-4,
+    "updates_per_episode": 200,
+    "buffer_capacity": 100000
+  },
+  "eval_regimes": [
+    {"name": "nominal", "type": "nominal"},
+    {"name": "ood_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}},
+    {
+      "name": "sudden_actuator_0.40",
+      "type": "sudden",
+      "shift_step": 100,
+      "before": {"actuator": 1.0},
+      "after": {"actuator": 0.4}
+    },
+    {
+      "name": "multi_sudden_actuator",
+      "type": "multi_sudden",
+      "changes": [
+        {"step": 0, "actuator": 1.0},
+        {"step": 100, "actuator": 0.5},
+        {"step": 250, "actuator": 0.85},
+        {"step": 375, "actuator": 0.35}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+{"inherits":"../full_pearl_dynamics_lookahead_ft.json","eval":{"output_root":"results/ft_sweep/ft_lr1e-4_u50"},"finetune":{"lr":1e-4,"actor_lr":1e-4,"updates_per_episode":50}}

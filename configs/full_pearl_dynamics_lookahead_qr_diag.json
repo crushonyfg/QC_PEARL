@@ -1,0 +1,27 @@
+{
+  "inherits": "full_pearl_dynamics_lookahead_sweep.json",
+  "eval": {
+    "num_episodes": 2,
+    "seeds": [0],
+    "output_root": "results/full_pearl_dynamics_lookahead_qr_diag"
+  },
+  "lookahead": {
+    "num_candidates": 96,
+    "local_action_stds": [0.1, 0.3],
+    "q_obs_noise": 0.5,
+    "q_prior_var": 0.25,
+    "q_rho": 0.999
+  },
+  "eval_regimes": [
+    {"name": "nominal", "type": "nominal"},
+    {"name": "ood_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}},
+    {"name": "ood_actuator_0.40", "type": "fixed", "fixed": {"actuator": 0.4}},
+    {
+      "name": "sudden_actuator_0.40",
+      "type": "sudden",
+      "shift_step": 100,
+      "before": {"actuator": 1.0},
+      "after": {"actuator": 0.4}
+    }
+  ]
+}

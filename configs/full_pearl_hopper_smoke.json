@@ -1,0 +1,60 @@
+{
+  "inherits": "pearl_base.json",
+  "meta": {
+    "buffer_capacity": 200000
+  },
+  "full_pearl": {
+    "num_train_tasks": 16,
+    "initial_random_episodes_per_task": 2,
+    "epochs": 20,
+    "rollouts_per_epoch": 16,
+    "updates_per_epoch": 100,
+    "eval_interval": 2
+  },
+  "latent": {
+    "dim": 5,
+    "context_batch_size": 64,
+    "eval_context_min": 5,
+    "eval_context_max": 50
+  },
+  "pearl": {
+    "meta_batch_size": 8,
+    "rl_batch_size": 256,
+    "gamma": 0.99,
+    "sac_alpha": 0.2,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.0003,
+    "beta_kl": 0.001,
+    "tau": 0.005,
+    "action_scale": 1.0
+  },
+  "networks": {
+    "actor_hidden": [256, 256],
+    "q_hidden": [256, 256],
+    "encoder_hidden": [200, 200, 200]
+  },
+  "policy_verify": {
+    "min_episode_length": 100,
+    "num_rollouts": 3,
+    "fail_on_short_episode": true
+  },
+  "eval": {
+    "num_episodes": 3,
+    "seeds": [0],
+    "output_root": "results/full_pearl_smoke"
+  },
+  "checkpoints": {
+    "dir": "checkpoints/full_pearl_smoke"
+  },
+  "eval_regimes": [
+    {"name": "nominal", "type": "nominal"},
+    {"name": "ood_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}},
+    {
+      "name": "sudden_actuator",
+      "type": "sudden",
+      "shift_step": 100,
+      "before": {"actuator": 1.0},
+      "after": {"actuator": 0.6}
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "inherits": "full_pearl_hopper.json",
+  "checkpoints": {
+    "dir": "checkpoints/full_pearl"
+  },
+  "dynamics_model": {
+    "num_train_tasks": 16,
+    "episodes_per_task": 2,
+    "explore_std": 0.15,
+    "hidden": [256, 256, 256],
+    "epochs": 60,
+    "batch_size": 256,
+    "lr": 0.001
+  },
+  "lookahead": {
+    "methods": ["full_pearl_only", "q_greedy", "value_shift"],
+    "num_candidates": 64,
+    "policy_candidate_frac": 0.25,
+    "local_action_std": 0.1,
+    "feature_dim": 128,
+    "lengthscale": 1.0,
+    "feature_state_scale": 5.0,
+    "feature_z_scale": 1.0,
+    "prior_var": 0.25,
+    "obs_noise_mode": "nominal_std",
+    "obs_noise_scale": 1.0,
+    "rho": 0.999,
+    "q_alpha": 1e-5,
+    "residual_clip_sigma": 5.0,
+    "selection": "argmax",
+    "topk": 8,
+    "topk_softmax_tau": 0.5,
+    "lambda_action": 1.0,
+    "lambda_switch": 0.0,
+    "use_reward_shift": true,
+    "forward_reward_weight": 1.0,
+    "ctrl_cost_weight": 0.001,
+    "healthy_reward": 1.0,
+    "vx_index": 5,
+    "horizon": 5,
+    "use_gate": true,
+    "gate_slope": 8.0,
+    "gate_threshold": 0.6,
+    "ewma_rho": 0.1,
+    "warmup_episodes": 3
+  },
+  "eval": {
+    "num_episodes": 3,
+    "seeds": [0],
+    "output_root": "results/full_pearl_dynamics_lookahead_smoke"
+  }
+}

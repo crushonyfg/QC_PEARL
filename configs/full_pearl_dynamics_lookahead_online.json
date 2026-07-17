@@ -1,0 +1,14 @@
+{
+  "inherits": "full_pearl_dynamics_lookahead_ft.json",
+  "eval": {
+    "num_episodes": 10,
+    "seeds": [0, 1, 2],
+    "output_root": "results/online"
+  },
+  "eval_regimes": [
+    {"name": "nominal", "type": "nominal"},
+    {"name": "ood_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}},
+    {"name": "compound_mild", "type": "fixed", "fixed": {"actuator": 0.8, "friction": 0.8, "mass": 1.2, "damping": 1.2}},
+    {"name": "multi_sudden_actuator", "type": "multi_sudden", "changes": [{"step": 0, "actuator": 1.0}, {"step": 100, "actuator": 0.5}, {"step": 250, "actuator": 0.85}, {"step": 375, "actuator": 0.35}]}
+  ]
+}

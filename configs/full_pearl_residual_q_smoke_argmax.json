@@ -1,0 +1,11 @@
+{
+  "inherits": "full_pearl_residual_q_smoke.json",
+  "eval": {
+    "num_episodes": 3,
+    "seeds": [0],
+    "output_root": "results/full_pearl_residual_q_smoke_argmax"
+  },
+  "residual_q": {
+    "selection": "argmax"
+  }
+}

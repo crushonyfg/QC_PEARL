@@ -1,0 +1,31 @@
+{
+  "inherits": "full_pearl_dynamics_lookahead_qr.json",
+  "eval": {
+    "num_episodes": 3,
+    "seeds": [0, 1, 2],
+    "output_root": "results/zeroshot"
+  },
+  "eval_regimes": [
+    {"name": "nominal", "type": "nominal"},
+
+    {"name": "action_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}},
+    {"name": "action_actuator_0.40", "type": "fixed", "fixed": {"actuator": 0.4}},
+    {"name": "action_bias_0.20", "type": "nominal", "action_perturb": {"bias": 0.2}},
+    {"name": "action_noise_0.20", "type": "nominal", "action_perturb": {"noise_std": 0.2}},
+
+    {"name": "env_friction_0.60", "type": "fixed", "fixed": {"friction": 0.6}},
+    {"name": "env_friction_1.50", "type": "fixed", "fixed": {"friction": 1.5}},
+    {"name": "env_damping_0.60", "type": "fixed", "fixed": {"damping": 0.6}},
+    {"name": "env_damping_1.50", "type": "fixed", "fixed": {"damping": 1.5}},
+
+    {"name": "body_mass_1.50", "type": "fixed", "fixed": {"mass": 1.5}},
+    {"name": "body_mass_0.60", "type": "fixed", "fixed": {"mass": 0.6}},
+
+    {"name": "compound_mild", "type": "fixed", "fixed": {"actuator": 0.8, "friction": 0.8, "mass": 1.2, "damping": 1.2}},
+    {"name": "compound_hard", "type": "fixed", "fixed": {"actuator": 0.65, "friction": 0.7, "mass": 1.35, "damping": 1.3}},
+
+    {"name": "sudden_actuator_0.40", "type": "sudden", "shift_step": 100, "before": {"actuator": 1.0}, "after": {"actuator": 0.4}},
+    {"name": "gradual_actuator_0.20", "type": "gradual", "drift": {"actuator": {"start": 1.0, "end": 0.2, "duration": 350}}},
+    {"name": "multi_sudden_actuator", "type": "multi_sudden", "changes": [{"step": 0, "actuator": 1.0}, {"step": 100, "actuator": 0.5}, {"step": 250, "actuator": 0.85}, {"step": 375, "actuator": 0.35}]}
+  ]
+}

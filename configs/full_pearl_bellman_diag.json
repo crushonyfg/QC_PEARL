@@ -1,0 +1,27 @@
+{
+  "inherits": "full_pearl_hopper.json",
+  "bellman_diag": {
+    "output_root": "results/full_pearl_bellman_diag",
+    "value_action_samples": 16,
+    "ewma_rho": 0.05
+  },
+  "eval": {
+    "num_episodes": 5,
+    "seeds": [0, 1, 2, 3, 4],
+    "output_root": "results/full_pearl_bellman_diag"
+  },
+  "eval_regimes": [
+    {"name": "nominal", "type": "nominal"},
+    {"name": "ood_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}},
+    {
+      "name": "sudden_actuator",
+      "type": "sudden",
+      "shift_step": 100,
+      "before": {"actuator": 1.0},
+      "after": {"actuator": 0.6}
+    }
+  ],
+  "checkpoints": {
+    "dir": "checkpoints/full_pearl"
+  }
+}

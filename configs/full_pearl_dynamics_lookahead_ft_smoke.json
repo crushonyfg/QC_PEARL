@@ -1,0 +1,17 @@
+{
+  "inherits": "full_pearl_dynamics_lookahead_qr.json",
+  "eval": {
+    "num_episodes": 1,
+    "seeds": [0],
+    "output_root": "results/full_pearl_dynamics_lookahead_ft_smoke"
+  },
+  "finetune": {
+    "lr": 3e-4,
+    "actor_lr": 3e-4,
+    "updates_per_episode": 20,
+    "buffer_capacity": 100000
+  },
+  "eval_regimes": [
+    {"name": "ood_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}}
+  ]
+}
