@@ -1,0 +1,46 @@
+{
+  "inherits": "full_pearl_hopper.json",
+  "eval": {
+    "num_episodes": 3,
+    "seeds": [0],
+    "output_root": "results/full_pearl_residual_q_smoke"
+  },
+  "eval_regimes": [
+    {"name": "nominal", "type": "nominal"},
+    {"name": "ood_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}},
+    {
+      "name": "sudden_actuator",
+      "type": "sudden",
+      "shift_step": 100,
+      "before": {"actuator": 1.0},
+      "after": {"actuator": 0.6}
+    }
+  ],
+  "residual_q": {
+    "methods": ["full_pearl_only", "q_sample", "brpc_q_mean", "brpc_q_conservative", "brpc_q_gated"],
+    "nominal_stats_path": "results/full_pearl_bellman_diag/nominal_residual_stats.json",
+    "value_action_samples": 8,
+    "num_candidates": 48,
+    "policy_candidate_frac": 0.25,
+    "local_action_std": 0.08,
+    "softmax_tau": 5.0,
+    "lambda_action": 10.0,
+    "lambda_switch": 1.0,
+    "feature_dim": 128,
+    "lengthscale": 1.0,
+    "feature_state_scale": 5.0,
+    "feature_z_scale": 1.0,
+    "prior_var": 0.25,
+    "obs_noise": 1.0,
+    "rho": 0.99,
+    "q_alpha": 0.0001,
+    "residual_clip_sigma": 5.0,
+    "beta_unc": 1.0,
+    "ewma_rho": 0.05,
+    "gate_threshold": 0.55,
+    "gate_slope": 8.0
+  },
+  "checkpoints": {
+    "dir": "checkpoints/full_pearl"
+  }
+}

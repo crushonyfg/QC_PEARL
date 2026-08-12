@@ -1,0 +1,121 @@
+{
+  "env": {
+    "name": "Hopper-v4",
+    "max_episode_steps": 500,
+    "seed": 0
+  },
+  "dynamics_randomization": {
+    "train_range": {
+      "mass": [0.8, 1.2],
+      "friction": [0.8, 1.2],
+      "damping": [0.8, 1.2],
+      "actuator": [0.8, 1.2]
+    }
+  },
+  "latent": {
+    "dim": 4,
+    "context_batch_size": 64,
+    "eval_context_min": 5,
+    "eval_context_max": 50
+  },
+  "z_projection": {
+    "window_len": 20,
+    "steps": 10,
+    "lr": 0.01,
+    "lambda_z": 1.0,
+    "z_clip": 1.5
+  },
+  "meta": {
+    "num_tasks_per_collect": 40,
+    "rollouts_per_task": 3,
+    "buffer_capacity": 100000,
+    "collect_policy": "random",
+    "encoder_mode": "supervised",
+    "training_mode": "two_phase",
+    "use_online_sac": true,
+    "online_tasks": 30,
+    "online_episodes_per_task": 8,
+    "beta_sup": 1.0
+  },
+  "pearl": {
+    "meta_batch_size": 8,
+    "rl_batch_size": 256,
+    "num_updates": 3000,
+    "gamma": 0.99,
+    "sac_alpha": 0.2,
+    "actor_lr": 0.0003,
+    "critic_lr": 0.0003,
+    "encoder_lr": 0.0003,
+    "encoder_updates": 2000,
+    "beta_kl": 0.001,
+    "tau": 0.005,
+    "action_scale": 1.0
+  },
+  "networks": {
+    "actor_hidden": [256, 256],
+    "q_hidden": [256, 256],
+    "encoder_hidden": [200, 200, 200]
+  },
+  "dynamics": {
+    "hidden": [256, 256, 256],
+    "lr": 0.001,
+    "batch_size": 256,
+    "epochs": 80
+  },
+  "brpc": {
+    "feature_dim": 128,
+    "lengthscale": 1.0,
+    "prior_var": 1.0,
+    "obs_noise": 0.05,
+    "rho": 0.99,
+    "q_alpha": 0.0001,
+    "kappa": 0.5,
+    "u_max_frac": 0.2,
+    "lambda_J": 0.001,
+    "eta_u": 0.5,
+    "residual_clip": 5.0
+  },
+  "baselines": {
+    "latent_ema_rho": 0.1
+  },
+  "checkpoints": {
+    "dir": "checkpoints/pearl_brpc"
+  },
+  "eval": {
+    "num_episodes": 5,
+    "seeds": [0, 1, 2],
+    "output_root": "results/pearl_brpc_full"
+  },
+  "eval_methods_all": [
+    "pearl_only",
+    "latent_ema",
+    "constant_bias",
+    "rls_adapter",
+    "brpc_adapter",
+    "brpc_no_gate",
+    "oracle_z"
+  ],
+  "eval_regimes": [
+    {"name": "nominal", "type": "nominal"},
+    {
+      "name": "id_fixed",
+      "type": "fixed",
+      "fixed": {"mass": 1.15, "friction": 0.9, "damping": 1.1, "actuator": 0.85}
+    },
+    {"name": "ood_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}},
+    {"name": "ood_friction_0.60", "type": "fixed", "fixed": {"friction": 0.6}},
+    {"name": "ood_mass_1.50", "type": "fixed", "fixed": {"mass": 1.5}},
+    {
+      "name": "sudden_actuator",
+      "type": "sudden",
+      "shift_step": 100,
+      "before": {"mass": 1.0, "friction": 1.0, "damping": 1.0, "actuator": 1.0},
+      "after": {"mass": 1.0, "friction": 1.0, "damping": 1.0, "actuator": 0.6}
+    },
+    {
+      "name": "gradual_actuator",
+      "type": "gradual",
+      "drift": {"actuator": {"start": 1.0, "end": 0.6, "duration": 400}}
+    }
+  ]
+}

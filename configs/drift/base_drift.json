@@ -1,0 +1,11 @@
+{
+  "inherits":"../full_pearl_dynamics_lookahead_qr.json",
+  "eval":{"num_episodes":3,"seeds":[0,1,2],"output_root":"results/drift/_ref"},
+  "finetune":{"lr":3e-4,"actor_lr":3e-4,"updates_per_episode":200,"buffer_capacity":100000},
+  "lookahead":{"trace_bins":25},
+  "eval_regimes":[
+    {"name":"nominal","type":"nominal"},
+    {"name":"gradual_actuator_0.20","type":"gradual","drift":{"actuator":{"start":1.0,"end":0.2,"duration":350}}},
+    {"name":"multi_sudden_actuator","type":"multi_sudden","changes":[{"step":0,"actuator":1.0},{"step":100,"actuator":0.5},{"step":250,"actuator":0.85},{"step":375,"actuator":0.35}]}
+  ]
+}

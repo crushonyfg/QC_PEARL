@@ -1,0 +1,17 @@
+{
+  "inherits": "full_pearl_residual_q_smoke.json",
+  "eval": {
+    "num_episodes": 3,
+    "seeds": [0],
+    "output_root": "results/full_pearl_residual_q_smoke_trust"
+  },
+  "residual_q": {
+    "policy_candidate_frac": 0.0,
+    "local_action_std": 0.04,
+    "softmax_tau": 10.0,
+    "lambda_action": 50.0,
+    "lambda_switch": 0.0,
+    "gate_threshold": 0.65,
+    "gate_slope": 8.0
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "inherits": "full_pearl_hopper.json",
+  "eval": {
+    "num_episodes": 3,
+    "seeds": [0],
+    "output_root": "results/full_pearl_z_reweight_smoke"
+  },
+  "eval_regimes": [
+    {"name": "nominal", "type": "nominal"},
+    {"name": "ood_actuator_0.60", "type": "fixed", "fixed": {"actuator": 0.6}},
+    {
+      "name": "sudden_actuator",
+      "type": "sudden",
+      "shift_step": 100,
+      "before": {"actuator": 1.0},
+      "after": {"actuator": 0.6}
+    }
+  ],
+  "z_reweight": {
+    "methods": ["full_pearl_only", "z_reweight", "z_reweight_gated"],
+    "nominal_stats_path": "results/full_pearl_bellman_diag/nominal_residual_stats.json",
+    "value_action_samples": 4,
+    "num_z_samples": 8,
+    "window_size": 8,
+    "min_window": 4,
+    "tau_z": 5.0,
+    "rho_z_max": 0.35,
+    "ewma_rho": 0.05,
+    "gate_threshold": 0.65,
+    "gate_slope": 8.0
+  },
+  "checkpoints": {
+    "dir": "checkpoints/full_pearl"
+  }
+}

@@ -1,0 +1,1 @@
+{"inherits":"base.json","eval":{"output_root":"results/nstep/n3"},"lookahead":{"q_nstep":3}}

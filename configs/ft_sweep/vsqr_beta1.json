@@ -1,0 +1,1 @@
+{"inherits":"../full_pearl_dynamics_lookahead_ft.json","eval":{"output_root":"results/ft_sweep/vsqr_beta1"},"lookahead":{"q_lcb_beta":1.0}}

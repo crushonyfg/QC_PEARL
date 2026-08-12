@@ -1,0 +1,1 @@
+{"inherits":"../full_pearl_dynamics_lookahead_qr.json","eval":{"num_episodes":2,"seeds":[0],"output_root":"results/nstep_smoke/lam09"},"lookahead":{"q_lambda":0.9},"eval_regimes":[{"name":"ood_actuator_0.60","type":"fixed","fixed":{"actuator":0.6}}]}

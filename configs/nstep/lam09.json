@@ -1,0 +1,1 @@
+{"inherits":"base.json","eval":{"output_root":"results/nstep/lam09"},"lookahead":{"q_lambda":0.9}}
